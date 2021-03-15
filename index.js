@@ -231,6 +231,7 @@ express()
       res.send("Error " + err);
     }
   })
+  .get('/dima', (req, res) => res.render('pages/dima'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
