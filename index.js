@@ -1,5 +1,6 @@
 
 const express = require('express')
+const app = express()
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
@@ -10,7 +11,11 @@ const pool = new Pool({
     }
 });
 
-express()
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+
+app
   .use(express.static(path.join(__dirname, 'public')))
   .use(express.urlencoded({extended: true}))
   .set('views', path.join(__dirname, 'views'))
