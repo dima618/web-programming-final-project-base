@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./icons/bootstrap-icons.css">
+        <script src="./charts/Chart.js"></script>
+    </head>
+ 
+    <body>
+        <div class="container mt-3">
+            <h1>AAPL</h1>
+            <h3>125.29 <span class="badge rounded-pill bg-success">+1.03%</span></h3>
+        </div>
+        <hr>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chLine"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </div>
+        <!-- Placeholder chart script. This will be moved to separate file later. -->
+        <script>
+
+            let chartData = {
+                labels: ["S", "M", "T", "W", "T", "F", "S"],
+                datasets: [{
+                    data: [117, 119, 123, 120, 124, 122, 125],
+                }]
+            };
+
+            let chLine = document.getElementById("chLine");
+            if (chLine) {
+            new Chart(chLine, {
+            type: 'line',
+            data: chartData,
+            options: {
+                scales: {
+                yAxes: [{
+                    ticks: {
+                    beginAtZero: false
+                    }
+                }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+            });
+            }
+        </script>
+    </body>
+</html>
