@@ -11,9 +11,11 @@ const pool = new Pool({
     }
 });
 
-app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
-app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
-app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
+app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
+app.use('/charts', express.static(path.join(__dirname, 'node_modules/chart.js/dist')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 
 app
   .use(express.static(path.join(__dirname, 'public')))
@@ -236,7 +238,7 @@ app
       res.send("Error " + err);
     }
   })
-  .get('/dima', (req, res) => res.render('pages/dima'))
+  .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
   .get('/jack', (req, res) => res.render('pages/jack'))
   .get('/denn', (req, res) => res.render('pages/denn'))

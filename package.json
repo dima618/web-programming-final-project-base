@@ -20,8 +20,9 @@
     "popper": "^1.0.1"
   },
   "devDependencies": {
-    "bootstrap": "^5.0.0-beta2",
-    "got": "^11.8.2",
+    "bootstrap": "^4.6.0",
+    "chart.js": "^2.9.4",
+    "got": "^11.3.0",
     "tape": "^4.7.0"
   },
   "repository": {
