@@ -1,0 +1,13 @@
+h1 {
+    position:fixed;
+    left: 40%;
+    top: 30%;
+    font-size: 64px;
+}
+.textentry {
+    position: relative;
+    text-align: center;
+    left: 40%;
+    top: 40%;
+    font-size: 32px;
+ }
