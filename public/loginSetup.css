@@ -1,0 +1,27 @@
+h1 {
+    position: fixed;
+    left: 40%;
+    top: 30%;
+    font-size: 64px;
+}
+.user {
+    position: fixed;
+    text-align: center;
+    left: 35%;
+    top: 50%;
+    font-size: 40px;
+ }
+.pass {
+   position: fixed;
+   text-align: center;
+   left: 35%;
+   top: 60%;
+   font-size: 40px;
+}
+.submit {
+   position: fixed;
+   text-align: center;
+   left: 41%;
+   top: 70%;
+   font-size: 30px;
+}
