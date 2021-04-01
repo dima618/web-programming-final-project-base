@@ -11,6 +11,35 @@ const pool = new Pool({
     }
 });
 
+let companies = [
+  {
+    "name": "Apple":
+    "ticker": "APPL",
+    "days": [
+      {"date": "2013/09/25", "open": "200", "close": "202"},
+      {"date": "2013/09/26", "open": "202", "close": "204"}
+    ]
+  },
+  {
+    "name": "Datadog":
+    "ticker": "DDOG",
+    "days": [
+      {"date": "2013/09/25", "open": "40", "close": "37"},
+      {"date": "2013/09/26", "open": "37", "close": "36"}
+    ]
+  },
+  {
+    "name": "Evoke":
+    "ticker": "EVOK",
+    "days": [
+      {"date": "2013/09/25", "open": "11", "close": "12"},
+      {"date": "2013/09/26", "open": "12", "close": "13"}
+    ]
+  }
+];
+
+console.log(companies);
+
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
 app.use('/charts', express.static(path.join(__dirname, 'node_modules/chart.js/dist')))
