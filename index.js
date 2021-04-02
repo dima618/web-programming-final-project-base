@@ -4,6 +4,7 @@ const app = express()
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const { Pool } = require('pg');
+const { runInNewContext } = require('vm');
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -13,15 +14,17 @@ const pool = new Pool({
 
 let companies = [
   {
-    "name": "Apple":
+    "name": "Apple",
     "ticker": "APPL",
     "days": [
       {"date": "2013/09/25", "open": "200", "close": "202"},
-      {"date": "2013/09/26", "open": "202", "close": "204"}
+      {"date": "2013/09/26", "open": "202", "close": "204"},
+      {"date": "2013/09/27", "open": "202", "close": "197"},
+      {"date": "2013/09/28", "open": "197", "close": "205"},
     ]
   },
   {
-    "name": "Datadog":
+    "name": "Datadog",
     "ticker": "DDOG",
     "days": [
       {"date": "2013/09/25", "open": "40", "close": "37"},
@@ -29,7 +32,7 @@ let companies = [
     ]
   },
   {
-    "name": "Evoke":
+    "name": "Evoke",
     "ticker": "EVOK",
     "days": [
       {"date": "2013/09/25", "open": "11", "close": "12"},
@@ -37,8 +40,6 @@ let companies = [
     ]
   }
 ];
-
-console.log(companies);
 
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
@@ -267,7 +268,28 @@ app
       res.send("Error " + err);
     }
   })
-  .get('/ticker', (req, res) => res.render('pages/ticker'))
+  .get('/ticker/:name', (req, res) => {
+    try {
+      let ticker = companies.find(el => { return el.ticker === req.params.name });
+      for (let i = 0; i < ticker.days.length; i++) {
+        ticker.days[i]['percentChange'] = (ticker.days[i].close - ticker.days[i].open) / ticker.days[i].open * 100;
+      }
+      res.render('pages/ticker', {ticker: ticker});
+    } catch (err) {
+      console.log(err);
+      res.send("Error" + err);
+    }
+  })
+  .get('/ticker/:name/chart-data', (req, res) => {
+    try {
+      let {days, ...ticker} = companies.find(el => { return el.ticker === req.params.name });
+      res.send(days);
+    } catch (err) {
+      console.log(err);
+      res.send("Error" + err);
+    }
+  })
+  // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
   .get('/jack', (req, res) => res.render('pages/jack'))
   .get('/denn', (req, res) => res.render('pages/denn'))
