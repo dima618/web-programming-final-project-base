@@ -289,10 +289,21 @@ app
       res.send("Error" + err);
     }
   })
+
+  //Dennis Minn
+  .get('/dashboard', (req, res) => {
+    try {
+      res.render('pages/dashboard', {companies : companies});
+    } catch (err) {
+      console.log(err);
+      res.send("Error" + err);
+    }
+  })
+
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
   .get('/jack', (req, res) => res.render('pages/jack'))
-  .get('/denn', (req, res) => res.render('pages/denn'))
+  // .get('/denn', (req, res) => res.render('pages/denn'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
