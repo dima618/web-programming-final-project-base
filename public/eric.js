@@ -11,3 +11,15 @@ $('#login').on("submit",() => {
     })
     return false;
 });
+
+//Eric
+// .post('/service', async (req, res) => {
+//     try{
+//       login.find(el => { return el.email === user && el.password === secret});
+//       res.send("Success");
+//     }
+//     catch (err) {
+//       console.error(err);
+//       res.send("Error " + err);
+//     }
+//   })
