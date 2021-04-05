@@ -26,6 +26,7 @@
 	<div id="search_container" class="container">
 		<div>
 			<h1>Search for watchlist</h1>
+			<p>
 		</div>
 
 		<div>
@@ -51,42 +52,45 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
-		// Mock Data
-		const companies = [
-			{ name: "Apple", price: "200"},
-			{ name: "Google", price: "300"},
-			{ name: "Facebook", price: "400"},
-			{ name: "Tesla", price: "500"}
-		];
-
-		//let filteredCompanies = [];
-
-		// Populate table with mock data. Future implementation will be from the database.
 		function loadTableData(items) {
-		    const table = document.getElementById("tableBody");
-		    items.forEach( item => {
-		      let row = table.insertRow();
-		      let add = row.insertCell(0);
-		      add.innerHTML =
-		      "<a href=''><svg width='32' height='32' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></a>";
-		      let name = row.insertCell(1);
-		      name.innerHTML = item.name;
-		      let price = row.insertCell(2);
-		      price.innerHTML = item.price;
-		    });
+			const table = document.getElementById("tableBody");
+			items.forEach( item => {
+				let row = table.insertRow();
+				let add = row.insertCell(0);
+				add.innerHTML =
+						"<a href=''><svg width='32' height='32' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></a>";
+				let name = row.insertCell(1);
+				name.innerHTML = item.name;
+				let price = row.insertCell(2);
+				price.innerHTML = item.price;
+			});
 		}
 
-		// Load table and filter out the table depending on the search input value.
-		loadTableData(companies);
-		var $rows = $('#tableBody tr');
-		$('#searchInput').keyup(function() {
-		    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-		    
-		    $rows.show().filter(function() {
-		        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-		        return !~text.indexOf(val);
-		    }).hide();
+		// Mock Data
+		let companies = [];
+
+		$.get(window.location.pathname + "/search", function(data, status){
+			// Populate my companies array with the data from index.js. Only grabbing the data I want.
+			for (let i = 0; i < data.length; i++) {
+				let company = { name: data[i].name, price: data[i].days[0].close };
+				companies.push(company);
+			}
+
+			// Load table and filter out the table depending on the search input value.
+			loadTableData(companies);
+			var $rows = $('#tableBody tr');
+			$('#searchInput').keyup(function() {
+				var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+				$rows.show().filter(function() {
+					var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+					return !~text.indexOf(val);
+				}).hide();
+			});
+
 		});
+
+		// Populate table with mock data. Future implementation will be from the database.
 
 		// Only start searching when minimum 2 letters are inputed.
 		// $("#searchInput").keyup(minTwoLetter);
@@ -115,6 +119,7 @@
 		function performSearch(input) {
 			filteredCompanies = companies.filter(company => (company.name.toLowerCase().includes(input.toLowerCase())));
 		}
+
 	</script>
 </body>
 </html>

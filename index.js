@@ -41,6 +41,21 @@ let companies = [
   }
 ];
 
+let login = [
+  {
+      'email':'testing@yahoo.com',
+      'password':'passing'
+  },
+  {
+      'email':'render@hotmail.com',
+      'password':'rendered'
+  },
+  {
+      'email':'top100@gmail.com',
+      'password':'thebest'
+  }
+];
+
 app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
 app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
 app.use('/charts', express.static(path.join(__dirname, 'node_modules/chart.js/dist')))
@@ -296,6 +311,13 @@ app
       res.send("Error" + err);
     }
   })
+  .get('/jack/search', (req, res) => {
+      try {
+          res.send(companies);
+      } catch (err) {
+          console.log(err);
+      }
+  })
 
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
@@ -365,3 +387,4 @@ function getSides(body) {
 
     return sides;
 }
+
