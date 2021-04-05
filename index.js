@@ -321,7 +321,19 @@ app
           console.log(err);
       }
   })
+  
 
+  //Eric
+  .post('/service', async (req, res) => {
+    try{
+      login.find(el => { return el.email === user && el.password === secret});
+      res.send("Success");
+    }
+    catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
   .get('/jack', (req, res) => res.render('pages/jack'))
