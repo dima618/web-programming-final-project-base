@@ -314,17 +314,12 @@ app
       res.send("Error" + err);
     }
   })
-  
-  //Eric
-  .post('/service', async (req, res) => {
-    try{
-      login.find(el => { return el.email === user && el.password === secret});
-      res.send("Success");
-    }
-    catch (err) {
-      console.error(err);
-      res.send("Error " + err);
-    }
+  .get('/jack/search', (req, res) => {
+      try {
+          res.send(companies);
+      } catch (err) {
+          console.log(err);
+      }
   })
 
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
@@ -395,3 +390,4 @@ function getSides(body) {
 
     return sides;
 }
+
