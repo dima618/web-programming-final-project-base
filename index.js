@@ -271,9 +271,6 @@ app
   .get('/ticker/:name', (req, res) => {
     try {
       let ticker = companies.find(el => { return el.ticker === req.params.name });
-      for (let i = 0; i < ticker.days.length; i++) {
-        ticker.days[i]['percentChange'] = (ticker.days[i].close - ticker.days[i].open) / ticker.days[i].open * 100;
-      }
       res.render('pages/ticker', {ticker: ticker});
     } catch (err) {
       console.log(err);
