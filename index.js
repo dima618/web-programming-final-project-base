@@ -299,6 +299,13 @@ app
       res.send("Error" + err);
     }
   })
+    .get('/jack/search', (req, res) => {
+        try {
+            res.send(companies);
+        } catch (err) {
+            console.log(err);
+        }
+    })
 
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
