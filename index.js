@@ -321,10 +321,15 @@ app
   
 
   //Eric
-  .post('/service', async (req, res) => {
+  .post('/eric/login', async (req, res) => {
     try{
-      login.find(el => { return el.email === user && el.password === secret});
-      res.send("Success");
+      let user = login.find(el => { return el.email === req.body.email && el.password === req.body.password});
+      if (user) {
+        res.send({success: true});
+      }
+      else {
+        res.send({success: false});
+      }
     }
     catch (err) {
       console.error(err);
