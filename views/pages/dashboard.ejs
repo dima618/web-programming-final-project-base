@@ -15,28 +15,20 @@
 			integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" 
 			crossorigin="anonymous"></script>
 
-	<script src="/dashboard.js" defer></script>
+	<script src="/displayCompanies.js" defer></script>
+	<script src="/public.js" defer></script>
 	
 </head>
 <body>
-	<div id="table_container" class="container">
-		<table class="table table-striped">
+	<div class="container">
+		<table id = tableBody class="table table-striped">
 			<thead>
-			<tr>
+			  <tr>
 				<th scope="col">#</th>
 				<th scope="col" style="width: 66%;">Company Name</th>
 				<th scope="col" style="width: 33%;">Price</th>
-			</tr>
+			  </tr>
 			</thead>
-			<tbody>
-			<% for ([index, company] of companies.entries()){ %>
-			<tr>
-				<th scope="row"><%= index+1 %></th>
-				<td><%= company.name %> (<%= company.ticker %>)</td>
-				<td><span class="badge rounded-pill bg-success">+1.03%</span> 125.29$</td>
-			</tr>
-			<%}%>
-			</tbody>
 		  </table>
 		  <a href="" class="btn btn-secondary btn-sm">Add to Watchlist</a>
 	</div>
@@ -44,40 +36,3 @@
 
 
 </html>
-<!--
-	<body>
-	<h1><%= companies[0].name%></h1>
-	<div id="table_container" class="container">
-		<table class="table table-striped">
-			<thead>
-			  <tr>
-				<th scope="col">#</th>
-				<th scope="col" style="width: 66%;">Company Name</th>
-				<th scope="col" style="width: 33%;">Price</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr>
-				<th scope="row">1</th>
-				<td>Apple (APPL)</td>
-				<td><span class="badge rounded-pill bg-success">+1.03%</span> 125.29$</td>
-			  </tr>
-			  <tr>
-				<th scope="row">2</th>
-				<td>Google (GOOGL)</td>
-				<td><span class="badge rounded-pill bg-danger">-9.03%</span> 125.29$</td>
-			  </tr>
-			  <tr>
-				<th scope="row">3</th>
-				<td>Facebook (FB)</td>
-				<td><span class="badge rounded-pill bg-secondary">+0.03%</span> 125.29$</td>
-			  </tr>
-			</tbody>
-		  </table>
-		  <button type="button" id="addButton" class="btn btn-secondary btn-sm">Add to Watchlist</button>
-	</div>
-	<script>
-		console.log(companies)
-	</script>
-</body>
--->
