@@ -303,14 +303,14 @@ app
   })
 
   //Dennis Minn
-  .get('/dashboard', (req, res) => {
+  .get('/dashboard/companies', (req, res) => {
     try {
-      res.render('pages/dashboard', {companies : companies});
+        res.send(companies);
     } catch (err) {
-      console.log(err);
-      res.send("Error" + err);
+        console.log(err);
     }
-  })
+})
+
   .get('/jack/search', (req, res) => {
       try {
           res.send(companies);
@@ -339,7 +339,7 @@ app
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
   .get('/jack', (req, res) => res.render('pages/jack'))
-  // .get('/denn', (req, res) => res.render('pages/denn'))
+  .get('/dashboard', (req, res) => res.render('pages/dashboard'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
