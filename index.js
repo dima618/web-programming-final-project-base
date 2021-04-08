@@ -320,7 +320,7 @@ app
   })
   
 
-  //Eric
+  //Eric with help from Dmitry
   .post('/eric/login', async (req, res) => {
     try{
       let user = login.find(el => { return el.email === req.body.email && el.password === req.body.password});
