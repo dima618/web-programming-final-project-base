@@ -283,6 +283,7 @@ app
       res.send("Error " + err);
     }
   })
+
   .get('/ticker/:name', (req, res) => {
     try {
       let ticker = companies.find(el => { return el.ticker === req.params.name });
