@@ -283,6 +283,7 @@ app
       res.send("Error " + err);
     }
   })
+
   .get('/ticker/:name', (req, res) => {
     try {
       let ticker = companies.find(el => { return el.ticker === req.params.name });
@@ -320,7 +321,7 @@ app
   })
   
 
-  //Eric
+  //Eric with help from Dmitry
   .post('/eric/login', async (req, res) => {
     try{
       let user = login.find(el => { return el.email === req.body.email && el.password === req.body.password});
