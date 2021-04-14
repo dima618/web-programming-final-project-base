@@ -56,11 +56,11 @@ let login = [
   }
 ];
 
-app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
-app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
-app.use('/charts', express.static(path.join(__dirname, 'node_modules/chart.js/dist')))
-app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
-app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+// app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')));
+// app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
+// app.use('/charts', express.static(path.join(__dirname, 'node_modules/chart.js/dist')))
+// app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
+// app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 
 app
   .use(express.static(path.join(__dirname, 'public')))
@@ -274,7 +274,7 @@ app
   .get('/db', async (req, res) => {
     try {
       const client = await pool.connect();
-      const result = await client.query('SELECT * FROM order_table');
+      const result = await client.query('SELECT * FROM ticker');
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/db', results );
       client.release();
