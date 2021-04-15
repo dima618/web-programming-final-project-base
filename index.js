@@ -356,6 +356,18 @@ app
       res.send("Error " + err);
     }
   })
+  .get('/eric', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM users');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/eric', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
