@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+<body>
+	<div id="navbar_container" class="container">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		  <a class="navbar-brand" href="#">Team 19</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		    <div class="navbar-nav">
+		      <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+		      <a class="nav-link" href="#">My Watchlist</a>
+		      <a class="nav-link" href="#">Dashboard</a>
+		    </div>
+		  </div>
+		  <svg width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+			  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+			  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+		  </svg>
+		</nav>
+	</div>
+	<div id="search_container" class="container">
+		<div>
+			<h1>Search for watchlist</h1>
+			<p>
+		</div>
+
+		<div>
+			<form class="form-inline">
+			    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+			    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</div>
+	<% results.forEach(function(r) { %>
+        <li><%= r.company %> - <%= r.symbol %> - <%= r.t_date %> - <%= r.price_open %> - <%= r.price_close %></li>
+    <% }); %>
+	<div id="table_container" class="container">
+		<table class="table table-dark table-bordered table-hover" id="myTable">
+			<thead>
+				<tr>
+					<th>Add</th>
+					<th>Ticker</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody id="tableBody"></tbody>
+		</table>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		function loadTableData(items) {
+			const table = document.getElementById("tableBody");
+			items.forEach( item => {
+				let row = table.insertRow();
+				let add = row.insertCell(0);
+				add.innerHTML =
+						"<a href=''><svg width='32' height='32' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></a>";
+				let name = row.insertCell(1);
+				name.innerHTML = item.name;
+				let price = row.insertCell(2);
+				price.innerHTML = item.price;
+			});
+		}
+
+		// Mock Data
+		let companies = [];
+
+		$.get(window.location.pathname + "/companies", function(data, status){
+			// Populate my companies array with the data from index.js. Only grabbing the data I want.
+			for (let i = 0; i < data.length; i++) {
+				let company = { name: data[i].name, price: data[i].days[0].close };
+				companies.push(company);
+			}
+
+			// Load table and filter out the table depending on the search input value.
+			loadTableData(companies);
+			var $rows = $('#tableBody tr');
+			$('#searchInput').keyup(function() {
+				var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+				$rows.show().filter(function() {
+					var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+					return !~text.indexOf(val);
+				}).hide();
+			});
+
+		});
+
+		// Populate table with mock data. Future implementation will be from the database.
+
+		// Only start searching when minimum 2 letters are inputed.
+		// $("#searchInput").keyup(minTwoLetter);
+		// function minTwoLetter(event) { 
+		//     let $searchInput = $("#searchInput").val();
+		//     if ($searchInput.length >= 2) {
+		//     	// Perform search from the database. Future implementation, once database has been created.
+		//     	console.log("performing search")
+		//     	//document.getElementById("myTable").style.display = "block";
+		//     	$('#tableBody').show();
+		//     	performSearch($searchInput);
+		//     	loadTableData(filteredCompanies);
+		//     }
+		//     else {
+		//     	$('#tableBody').hide()
+		//     }
+		// }
+
+		// // Hides table if search Input has less than 2 letters
+		// function hideTable() {
+		// 	let myTable = document.getElementById("table");
+
+		// }
+
+		// Perform search on database (mock data) by using filter. 
+		function performSearch(input) {
+			filteredCompanies = companies.filter(company => (company.name.toLowerCase().includes(input.toLowerCase())));
+		}
+
+	</script>
+</body>
+</html>
