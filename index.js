@@ -347,7 +347,7 @@ app
   .get('/search/companies', async (req, res) => {
     try {
       const client = await pool.connect();
-      const result = await client.query('SELECT DISTINCT ticker.company, ticker.price_close FROM Ticker WHERE ticker.t_date = "2020-01-30"');
+      const result = await client.query("SELECT DISTINCT ticker.company, ticker.price_close FROM Ticker WHERE ticker.t_date = '2020-01-30'");
       const results = { 'results': (result) ? result.rows : null};
       res.render('pages/search', results );
       client.release();
