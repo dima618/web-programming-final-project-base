@@ -312,13 +312,13 @@ app
     }
 })
 
-  .get('/jack/search', (req, res) => {
-      try {
-          res.send(companies);
-      } catch (err) {
-          console.log(err);
-      }
-  })
+  // .get('/search/companies', (req, res) => {
+  //     try {
+  //         res.send(companies);
+  //     } catch (err) {
+  //         console.log(err);
+  //     }
+  // })
   
 
   //Eric with help from Dmitry
@@ -339,8 +339,20 @@ app
   })
   // .get('/ticker', (req, res) => res.render('pages/ticker'))
   .get('/eric', (req, res) => res.render('pages/eric'))
-  .get('/jack', (req, res) => res.render('pages/jack'))
+  .get('/search', (req, res) => res.render('pages/search'))
   .get('/dashboard', (req, res) => res.render('pages/dashboard'))
+  .get('/search/companies', async (req, res) => {
+    try {
+      const client = await pool.connect();
+      const result = await client.query('SELECT * FROM ticker');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/search', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
