@@ -72,7 +72,7 @@
 		// Mock Data
 		let companies = [];
 
-		$.get(window.location.pathname + "/companies", function(data, status){
+		$.get(window.location.pathname, function(data, status){
 			// Populate my companies array with the data from index.js. Only grabbing the data I want.
 			for (let i = 0; i < results.length; i++) {
 				let stock = { company: results[i].company, close: results[i].days[0].price_close };
