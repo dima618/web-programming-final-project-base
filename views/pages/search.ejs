@@ -36,6 +36,9 @@
 			</form>
 		</div>
 	</div>
+	<% results.forEach(function(r) { %>
+        <li><%= r.company %> - <%= r.symbol %> - <%= r.t_date %> - <%= r.price_open %> - <%= r.price_close %></li>
+    <% }); %>
 	<div id="table_container" class="container">
 		<table class="table table-dark table-bordered table-hover" id="myTable">
 			<thead>
