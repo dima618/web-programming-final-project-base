@@ -344,7 +344,7 @@ app
   .get('/eric', (req, res) => res.render('pages/eric'))
   .get('/search', (req, res) => res.render('pages/search'))
   .get('/dashboard', (req, res) => res.render('pages/dashboard'))
-  .get('/search/companies', async (req, res) => {
+  .get('/search', async (req, res) => {
     try {
       const client = await pool.connect();
       const result = await client.query('SELECT * FROM ticker');
