@@ -284,10 +284,13 @@ app
     }
   })
 
-  .get('/ticker/:name', (req, res) => {
+  .get('/ticker/:name', async (req, res) => {
     try {
-      let ticker = companies.find(el => { return el.ticker === req.params.name });
-      res.render('pages/ticker', {ticker: ticker});
+      // let ticker = companies.find(el => { return el.ticker === req.params.name });
+      const client = await pool.connect();
+      const result = await client.query(`SELECT company, price_close FROM ticker WHERE symbol=${req.params.name} ORDER BY t_date LIMIT 1`);
+      const results = { 'result': (result) ? result.rows[0] : null};
+      res.render('pages/ticker', {ticker: results.result});
     } catch (err) {
       console.log(err);
       res.send("Error" + err);
