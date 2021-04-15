@@ -62,10 +62,10 @@
 				let add = row.insertCell(0);
 				add.innerHTML =
 						"<a href=''><svg width='32' height='32' fill='currentColor' class='bi bi-plus-circle' viewBox='0 0 16 16'><path d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/><path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/></svg></a>";
-				let name = row.insertCell(1);
-				name.innerHTML = item.name;
-				let price = row.insertCell(2);
-				price.innerHTML = item.price;
+				let company = row.insertCell(1);
+				company.innerHTML = item.company;
+				let close = row.insertCell(2);
+				close.innerHTML = item.close;
 			});
 		}
 
@@ -74,11 +74,11 @@
 
 		$.get(window.location.pathname + "/companies", function(data, status){
 			// Populate my companies array with the data from index.js. Only grabbing the data I want.
-			for (let i = 0; i < data.length; i++) {
-				let company = { name: data[i].name, price: data[i].days[0].close };
-				companies.push(company);
+			for (let i = 0; i < results.length; i++) {
+				let stock = { company: results[i].company, close: results[i].days[0].price_close };
+				companies.push(stock);
 			}
-
+			console.log(companies);
 			// Load table and filter out the table depending on the search input value.
 			loadTableData(companies);
 			var $rows = $('#tableBody tr');
