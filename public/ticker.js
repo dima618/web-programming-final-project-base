@@ -10,9 +10,9 @@ $.get(window.location.pathname + "/chart-data", function(data, status){
     $('#percent').text(percent_change + '%');
     calculateButton(percent_change, 'percent');
     console.log(data);
-    for (day of data.results) {
-        chartData.labels.push(day.date);
-        chartData.datasets[0].data.push(parseInt(day.close, 10));
+    for (day of data) {
+        chartData.labels.push(day.t_date);
+        chartData.datasets[0].data.push(parseInt(day.price_close.toFixed(2), 10));
     }
     let chLine = $("#chLine");
     if (chLine) {
