@@ -9,7 +9,7 @@ $.get(window.location.pathname + "/chart-data", function(data, status){
     let percent_change = calculatePercent(data.result);
     $('#percent').text(percent_change + '%');
     calculateButton(percent_change, 'percent');
-    console.log(data.results);
+    console.log(data);
     for (day of data.results) {
         chartData.labels.push(day.date);
         chartData.datasets[0].data.push(parseInt(day.close, 10));
