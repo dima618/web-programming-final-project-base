@@ -288,7 +288,7 @@ app
     try {
       // let ticker = companies.find(el => { return el.ticker === req.params.name });
       const client = await pool.connect();
-      const result = await client.query(`SELECT company, price_close FROM ticker WHERE symbol='${req.params.name}' ORDER BY t_date LIMIT 1`);
+      const result = await client.query(`SELECT company, price_close FROM ticker WHERE symbol='${req.params.name}' ORDER BY t_date DESC LIMIT 1`);
       const results = { 'result': (result) ? result.rows[0] : null};
       res.render('pages/ticker', {ticker: results.result});
     } catch (err) {
@@ -296,10 +296,13 @@ app
       res.send("Error" + err);
     }
   })
-  .get('/ticker/:name/chart-data', (req, res) => {
+  .get('/ticker/:name/chart-data', async (req, res) => {
     try {
-      let {days, ...ticker} = companies.find(el => { return el.ticker === req.params.name });
-      res.send(days);
+      // let {days, ...ticker} = companies.find(el => { return el.ticker === req.params.name });
+      const client = await pool.connect();
+      const result = await client.query(`SELECT price_close, t_date FROM ticker WHERE symbol='${req.params.name}' ORDER BY t_date`);
+      const results = { 'result': (result) ? result.rows : null};
+      res.send(results);
     } catch (err) {
       console.log(err);
       res.send("Error" + err);

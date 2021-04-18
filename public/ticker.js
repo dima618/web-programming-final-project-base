@@ -6,11 +6,11 @@ let chartData = {
 };
 
 $.get(window.location.pathname + "/chart-data", function(data, status){
-    let percent_change = calculatePercent(data);
+    let percent_change = calculatePercent(data.result);
     $('#percent').text(percent_change + '%');
-    calculateButton(calculatePercent(data), 'percent');
     calculateButton(percent_change, 'percent');
-    for (day of data) {
+    console.log(data.results);
+    for (day of data.results) {
         chartData.labels.push(day.date);
         chartData.datasets[0].data.push(parseInt(day.close, 10));
     }
